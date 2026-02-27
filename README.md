@@ -1,6 +1,6 @@
 # Linkin — URL Shortener API
 
-A simple URL shortener service with auto-expiry, rate limiting, analytics, and a custom 404 page.
+A simple URL shortener service with auto-expiry, rate limiting, and a custom 404 page.
 
 ---
 
