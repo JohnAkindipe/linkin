@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set("trust proxy", true);
 app.use(express.json());
 
 const DB_FILE = "./db.json";
@@ -157,6 +158,6 @@ app.get("/:id/stats", (req, res) => {
 //read db into cache
 loadDB();
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on port ${PORT}`));
 
 export default app;
