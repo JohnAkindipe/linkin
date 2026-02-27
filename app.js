@@ -1,6 +1,11 @@
 import express from "express";
 import { nanoid } from "nanoid";
 import { readFileSync, writeFileSync, existsSync } from "fs";
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
@@ -89,7 +94,7 @@ function rateLimiter(req, res, next) {
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: "." });
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 // POST /shorten — create a shortened URL
 app.post("/shorten", rateLimiter, (req, res) => {
@@ -115,7 +120,7 @@ app.get("/:id", (req, res) => {
 
   if (!entry || Date.now() > new Date(entry.expires).getTime()) {
     if (entry) delete dbCache[req.params.id]; // Cleanup if expired
-    return res.status(404).sendFile("not-found.html", { root: "." });
+    return res.status(404).sendFile(path.join(__dirname, "not-found.html"));
   }
 
   // Update analytics & reset expiry on click
@@ -132,7 +137,7 @@ app.get("/:id/stats", (req, res) => {
 
   if (!entry || Date.now() > new Date(entry.expires).getTime()) {
     if (entry) delete dbCache[req.params.id]; // Cleanup if expired
-    return res.status(404).sendFile("not-found.html", { root: "." });
+    return res.status(404).sendFile(path.join(__dirname, "not-found.html"));
   }
 
   entry.clicks++
