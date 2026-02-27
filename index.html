@@ -8,8 +8,36 @@
   <body>
     <h2>Linkin URL Shortener</h2>
     <p>
-      Welcome to Linkin URL shortener service, make a POST request to /shorten
-      with the url in the request body to use the shortener service.
+      Welcome to Linkin URL shortener service. Use the endpoints below to
+      shorten URLs, redirect, and view analytics.
     </p>
+
+    <h3>Endpoints</h3>
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>POST</td>
+          <td>/shorten</td>
+          <td>Shorten a URL. Send <code>{ "url": "https://example.com" }</code> in the JSON body. Returns the shortened link and its expiry date.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/:shortlink</td>
+          <td>Redirect to the original URL associated with the given shortlink.</td>
+        </tr>
+        <tr>
+          <td>GET</td>
+          <td>/:shortlink/stats</td>
+          <td>View analytics for a shortened URL — click count, creation date, expiry, and last accessed time.</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
